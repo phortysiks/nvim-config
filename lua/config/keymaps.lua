@@ -1,45 +1,23 @@
-local mapvimkey = require("util.keymapper").mapvimkey
+local mapkey = require("util.keymapper").mapvimkey
 
-local config = function()
-	local telescope = require("telescope")
-	telescope.setup({
-		defaults = {
-			mappings = {
-				i = {
-					["<C-j>"] = "move_selection_next",
-					["<C-k>"] = "move_selection_previous",
-				},
-			},
-		},
-		pickers = {
-			find_files = {
-				theme = "dropdown",
-				previewer = true,
-				hidden = true,
-			},
-			live_grep = {
-				theme = "dropdown",
-				previewer = true,
-			},
-			buffers = {
-				theme = "dropdown",
-				previewer = true,
-			},
-		},
-	})
-end
+-- Directory Navigation
+mapkey("<leader>m", "NvimTreeFocus", "n")
+mapkey("<leader>f", "NvimTreeToggle", "n")
 
-return {
-	"nvim-telescope/telescope.nvim",
-	tag = "0.1.3",
-	lazy = false,
-	dependencies = { "nvim-lua/plenary.nvim" },
-	config = config,
-	keys = {
-		mapvimkey("<leader>fk", "Telescope keymaps", "Show Keymaps"),
-		mapvimkey("<leader>fh", "Telescope help_tags", "Show Help Tags"),
-		mapvimkey("<leader>ff", "Telescope find_files", "Find Files"),
-		mapvimkey("<leader>fg", "Telescope live_grep", "Live Grep"),
-		mapvimkey("<leader>fb", "Telescope buffers", "Find Buffers"),
-	},
-}
+-- Pane and Window Navigation
+mapkey("<C-h>", "<C-w>h", "n") -- Navigate Left
+mapkey("<C-j>", "<C-w>j", "n") -- Navigate Down
+mapkey("<C-k>", "<C-w>k", "n") -- Navigate Up
+mapkey("<C-l>", "<C-w>l", "n") -- Navigate Right
+mapkey("<C-h>", "wincmd h", "t") -- Navigate Left
+mapkey("<C-j>", "wincmd j", "t") -- Navigate Down
+mapkey("<C-k>", "wincmd k", "t") -- Navigate Up
+mapkey("<C-l>", "wincmd l", "t") -- Navigate Right
+
+-- Window Management
+mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
+mapkey("<leader>sh", "split", "n") -- Split Horizontally
+
+-- Indenting
+vim.keymap.set("v", "<", "<gv", { silent = true, noremap = true })
+vim.keymap.set("v", ">", ">gv", { silent = true, noremap = true })
