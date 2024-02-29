@@ -7,3 +7,4 @@ vim.cmd("set relativenumber")
 vim.g.mapleader = " "
 vim.g.loaded_netwr = 1
 
+vim.keymap.set('i', 'kj', '<ESC>', { silent = true })
